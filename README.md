@@ -1,5 +1,5 @@
 # SAMS
-SAMS - Spectral Analysis and Management System
+## SAMS - Spectral Analysis and Management System
 
 Home
 Carlos Rueda edited this page on 14 Mar 2015 · 3 revisions
