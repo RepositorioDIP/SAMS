@@ -2,8 +2,6 @@
 ## SAMS - Spectral Analysis and Management System
 
 Home
-Carlos Rueda edited this page on 14 Mar 2015 · 3 revisions
-wiki page copied from previous google code hosting
 
 code migrated from an image of the original CVS repo
 
