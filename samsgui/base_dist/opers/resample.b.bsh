@@ -1,0 +1,89 @@
+// FWHM Resample operation
+// $Id$
+
+
+
+// This identifies this operation:
+name = "FWHM based resampling";
+
+// A description:
+description = 
+  "<html>"+
+  "A reference-based operation to resample selected signatures.<br>"+
+  "The reference signature should contain <b>wavelength,FWHM</b> columns.";
+
+
+kte = Math.sqrt(8*Math.log(2));
+
+/** Performs the FWHM based resampling operation.
+  *
+  * @param sig - A selected signature. SAMS passes one
+  *        of the selected signatures through this argument.
+  *
+  * @param ref - The FWHM signature. SAMS passed the
+  *         reference signature through this argument.
+  *
+  * @author C. Rueda, P. Zarco, Y. Cheng
+  * @version $Id$
+  */
+operate(sig, ref) {
+	// create new signature:
+	new_sig = new Signature();
+
+	// get sizes of operands:
+	ref_size = ref.getSize();
+	sig_size = sig.getSize();
+	
+	for ( int i = 0; i < ref_size; i++ ) {
+		rp = ref.getDatapoint(i);
+		// wavelength at which we want resample sig:
+		w = rp.x;
+		
+		fwhm = rp.y;
+		sigma = fwhm / kte;
+		
+		// as suggested by P.Z.
+		winsize = 2*fwhm;
+		winsize2 = fwhm;   // == winsize/2
+
+		// just to check that at least the signature is defined at w
+		// (we don't need the returned index)
+		OpUtil.indexAt(sig, w);
+		
+		// interval of interest:
+		double at_inf = w - winsize2;		
+		double at_sup = w + winsize2;
+
+		// corresponding indices:
+		int inf_idx = OpUtil.rightMostIndexAt(sig, at_inf);
+		int sup_idx = OpUtil.leftMostIndexAt(sig, at_sup);
+
+		// the following adjustments are OK since we already know
+		// the signature is at least defined at the center abscissa:
+		if ( inf_idx < 0 )
+			inf_idx = 0;
+		if ( sup_idx >= sig_size )
+			sup_idx = sig_size -1;
+		
+		// make weighting:
+		sum = 0.0;
+		ker_sum = 0.0;
+		for ( int j = inf_idx; j <= sup_idx; j++ ) {
+			sp = sig.getDatapoint(j);
+			
+			spxw2 = (sp.x-w)*(sp.x-w);
+			sigma2 = sigma*sigma;
+			
+			weight = Math.exp(-spxw2 / (2*sigma2));
+			ker_sum += weight;
+			sum += weight * sp.y;
+		}
+		y = sum / ker_sum;
+		new_sig.addDatapoint(w, y);
+	}
+
+	return new_sig;
+}
+
+
+

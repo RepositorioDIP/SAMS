@@ -1,0 +1,224 @@
+SAMS GUI DEVNOTES
+Carlos A. Rueda.
+$Id$
+
+ 04/07/05 - version 3.2
+ 	Operation FWHMSampling and Reflectance2Radiance are now
+	implemented in the sigoper module. Beanshell scripts to
+	be removed.
+	
+ 03/22/05 - version 3.2
+	- envifile module now supports reading from various envi
+	  data types in both little and big endian byte orders.
+	  (Writing is always in big endian.)
+	
+ 03/22/05 - version 3.2
+ 	- SignatureTable: wavelength and reflectance column headers
+	  renamed to "x" and "y" (more general terms). I also added
+	  a new column to put the index. So the columns now are:
+	     index, x, y, and info.
+		 
+	- New "reload-opers" action to reload scripted operations.
+	  A new method was added to SignatureOperationManager
+	  (sigopers module) to support this.
+	  
+	- New Reflectance to radiance operation (refl2rad.b.bsh)
+	
+	- SamsGui.init(): now uses the ToolTipManager to
+	  setDismissDelay with a longer delay (60 secs).
+	  
+	- resample.b.bsh improved: now the window size is taken as
+	  2*fwhm and applied in the same units as the wavelength in
+	  the operated signature.
+	  
+	- New base_dist/README.txt file for end users.
+	
+	- New build.properties; adjustments in build.xml; and
+	  samsgui.manifest removed.
+	  
+	- envifile module now supports reading from various envi
+	  data types (thou only byte order 1 is supported now)
+	
+ 03/21/05 - version 3.2
+ 	- ImportSignaturesFromAsciiFile: fixed the final message
+	  telling about the number of signatures imported.
+	  
+	- Compute.java: Previously all selected signatures were
+	  displayed right after an in-place operation were
+	  performed regardless of the number of signatures
+	  actually displayed in the plot panel. Now this is only
+	  done if the number of selected signatures is rather
+	  small.
+
+ 03/17/05 - version 3.2
+ 	- Exporter now allows the user to specify the data type
+	  for Envi output formats (std image and spectral library).
+	  Changes were done in the envifile and samscore module to
+	  support this (in particular, through the new class 
+	  envifile.EnviDataType).
+	  
+	- Import signatures from ascii file: Now a pattern for
+	  the suffix of new names can be specified. This uses
+	  a java.text.Decimal.Format.
+ 	
+
+
+ 09/29/04 - version 3.1
+ 	- New operations included in base_dist/opers/:
+		sort.s.bsh
+		resample.b.bsh
+		
+ 04/06/04 - version 3.1
+ 	- Just change in version with new izpack installer activated
+	  and splash image rotated to better fit in installation window.
+	
+ 09/19/03 - version 3.0
+ 	- izshortcut.xml fixed: the one for unix was deleted.
+	
+ 09/11/03 - version 3.0
+ 	- izpack installer specification updated to work on unix
+	  targets.
+	  
+ 08/29/03 - version 3.0
+ 	- New Info.getSAMSDirectory() (based on "sams.dir" system property).
+	- Initialization with getSAMSDirectory()/opers/ (now with only two
+	  simple examples).
+ 	- izpack now used to build installer, which allows for
+	  shortcuts (among many other things).
+	
+ 08/23/03 - version 3.0
+ 	- TO-DO.txt, BUGS.txt added.
+	
+ 08/21/03 - version 3.0
+ 	- comboboxes for table control panel.
+	
+ 08/18/03 - version 3.0
+ 	- Tree.updateReadOnlyGroupingBy(String[]) eliminated.
+ 	- Table changed to use IOrder
+ 	- "refresh-grouping" now updates all groupings.
+	
+ 08/17/03 - version 3.0
+ 	- Installer ready.
+	
+ 08/14/03 - version 3.0
+ 	- Set the new version 3.0
+	- minor changes in messages
+	- SamsGui.message's in Table.ControlPanel
+	
+ 08/13/03
+ 	- Plot no longer extends ptolemy.plot.Plot but delegates on it.
+	  This will ease a different implementation in a future version.
+ 	- refresh-grouping action implemented
+	- No more grouping creation/update as a byproduct of sorting table:
+	  it's enough to have the option "new-grouping-by-attribute".
+ 	- Code factoring in import options (Importer).
+	- Import from envi implemented.
+	- Cosmetic improvements in splash, import messages.
+	
+ 08/11/03
+	- Action: "import-files-database" renamed to "import-directory"
+	- Action: "import-files" created: to import specific files.
+	- Import options now allow the user to specify a target location group.
+	
+ 	- improved About window (with tabs).
+ 	- new grouping by attribute also enabled from a Database menu option.
+	- Import from system clipboard eliminated (never reimplemented).
+	
+ 08/10/03
+ 	- Grouping definitions are now stored (using the properties associated
+	  to each database). These definition are:
+	  	- created when new grouping given from table
+		- removed when click-delete over grouping and attribute removal in
+		  metadata definition edition.
+ 	- Table.TableModel.isCellEditable: only "location" is not editable.
+ 	- Controller.delete() now allows to delete virtual groupings.
+	  This is done inmmediately without confirmation.
+ 	- Tree.getSelectedSpectraPaths() won't be deleted. It now assures the
+	  returned list doesn't have duplicate location paths.
+	- Splash, initialization progress.
+	- Info properties management.
+	
+ 08/09/03
+ 	- Tree.getSelectedGroupPaths() deleted.
+	
+ 08/05/03
+ 	- Grouping-by included in tree display:
+	     location: is the structure reflecting the real paths to signatures
+		 status:
+		 species:
+		 status:location:
+		 etc:      are read-only groupings generated by Tree.updateReadOnlyGroupingBy(attrNames)
+		           based on db.getGroupingBy(attrNames)
+	  Tree.updateReadOnlyGroupingBy is called by DbGui when table.sort is called, which
+	  happens when a text is entered in the "Sort field" input field. 
+ 	- cut/delete clipboard operation now check if selection is only under "location:" grouping
+	  (since other groupings are read-only).
+	- Compute: now asks for destination group for new signatures.
+	- About command implemented.
+	
+ 08/01/03
+	- synchronized group/spectra elements managenent: tree operations consider now
+	  when spectra or group elements are being processed. In particular, it is
+	  possible to have a group and a spectrum (siblings) having the same (visible)
+	  name (on disk they are 'xxx' for the group and 'xxx.sig' for the signature).
+	
+ 07/31/03
+ 	- create subgroup ready
+ 	- delete group included in clipboard management
+ 	- create/update metadata ready
+	- import from ascii
+	
+ 07/29/03
+ 	- New scheme for SamsDb implementation:
+		- name.sig:    stores the signature
+		- name.sig.md: stores the metadata (PENDING to create/update)
+		- Spectrum not longer stored (serializable)
+		- "location", "name" are not longer explicit stored attributes
+	- Implicit "location", "name" attributes shown in Table.
+	- Rename as a command from tree display.
+
+ 07/28/03
+ 	- rename already working from table.
+ 	- view-data ready: now uses a JTable and the user can modify/save the contents
+	  including the user object (info) if any. See DbGui.viewData().  
+	  (Old command view-source was eliminated).
+	- Export (Envi, Envi-spectral-library, Ascii) ready. 
+	- clipboard interaction improvement: right-click now updates 
+	  selection. See DbGui.click()
+	  
+ 07/25/03
+	- clipboard operations: 
+		- Tree: new MyNode to simplify node management.
+		- new element in status bar for clipboard contents.
+		
+ 07/24/03
+	- clipboard operations: 
+		- progress-bar now working very nicely.
+		- all copy-cut-paste-delete operations already implemented
+		- table updated.
+		
+ 07/23/03
+	- Now on copy-cut-paste-delete actions ...
+	- Compute: All "string" parameters are required.
+	- Table updated after a computation.
+	- No repeated nodes in tree.
+	
+ 07/22/03
+	- Compute: checking required paramters...
+	
+ 07/21/03
+	- Now on single- and binary- operations ...
+	  See Compute.SingleForm.go()
+	
+ 07/10/03
+	- Import from directory
+	- Import from Ascii file
+
+ 07/09/03
+	- Preferences for:
+		- last directory used for import
+		- path to last open database
+
+ 07/07/03
+	- EditMetadataDefinition
+	
