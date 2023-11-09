@@ -48,7 +48,8 @@ Permission is hereby granted, without written agreement and without license or r
 IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-*ESPAÑOL*
+
+##ESPAÑOL##
 El Sistema de Análisis y Gestión Espectral (SAMS) es una aplicación Java para gestionar bases de datos y análisis de espectros de campo. Sus características incluyen: opciones de importación/exportación en varios formatos, agrupación de firmas, gestión de metadatos, operaciones comunes en firmas individuales o múltiples, conjunto más amplio de capacidades de trazado, y una estructura de datos simple para una fácil integración con otras aplicaciones.
 
 SAMS fue desarrollado originalmente en el Centro de Tecnologías Espaciales y Teledetección (CSTARS) de la Universidad de California, Davis, y se alojaba en https://projects.atlas.ca.gov/projects/sams/. A partir del 20 de noviembre de 2011, la nueva ubicación del proyecto es en Google Code.
